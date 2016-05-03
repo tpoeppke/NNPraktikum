@@ -1,0 +1,25 @@
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# Eclipse Core
+.project
+
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
+
+# Compile pyc files
+src/*.pyc
+src/data/*.pyc
+src/model/*.pyc
+src/processing/*.pyc
+src/report/*.pyc
+src/util/*.pyc
