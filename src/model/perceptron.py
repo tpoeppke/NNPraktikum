@@ -58,7 +58,21 @@ class Perceptron(Classifier):
 
         # Here you have to implement the Perceptron Learning Algorithm
         # to change the weights of the Perceptron
-        pass
+
+        misclassified = 0
+
+        for i in range(self.epochs):
+            for j in range(len(self.trainingSet.input)):
+                result = self.classify(self.trainingSet.input[j])
+                if result != self.trainingSet.label[j]:
+                    misclassified += 1
+                    diff = self.learningRate * (self.trainingSet.label[j] - result)
+                    updateVector = np.multiply(diff, self.trainingSet.input[j])
+                    self.weight = np.add(self.weight, updateVector)
+
+            logging.debug("Number of misclassified samples in epoch %d: %d", i, misclassified)
+
+
 
     def classify(self, testInstance):
         """Classify a single instance.
@@ -75,7 +89,8 @@ class Perceptron(Classifier):
         # Here you have to implement the classification for one instance,
         # i.e., return True if the testInstance is recognized as a 7,
         # False otherwise
-        pass
+        result = self.fire(testInstance)
+        return result
 
     def evaluate(self, test=None):
         """Evaluate a whole dataset.
