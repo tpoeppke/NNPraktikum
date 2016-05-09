@@ -46,6 +46,7 @@ class Perceptron(Classifier):
         # Initialize the weight vector with small random values
         # around 0 and 0.1
         self.weight = np.random.rand(self.trainingSet.input.shape[1])/10
+        self.bias = 0.01
 
     def train(self, verbose=True):
         """Train the perceptron with the perceptron learning algorithm.
@@ -66,7 +67,8 @@ class Perceptron(Classifier):
                 result = self.classify(self.trainingSet.input[j])
                 if result != self.trainingSet.label[j]:
                     misclassified += 1
-                    diff = self.learningRate * (self.trainingSet.label[j] - result)
+                    diff = np.multiply(self.learningRate, (self.trainingSet.label[j] - result))
+                    self.bias += diff
                     updateVector = np.multiply(diff, self.trainingSet.input[j])
                     self.weight = np.add(self.weight, updateVector)
 
@@ -117,4 +119,4 @@ class Perceptron(Classifier):
     def fire(self, input):
         """Fire the output of the perceptron corresponding to the input """
         # I already implemented it for you to see how you can work with numpy
-        return Activation.sign(np.dot(np.array(input), self.weight))
+        return Activation.sign(np.dot(np.array(input), self.weight) + self.bias)
